@@ -1,0 +1,40 @@
+rules_rev: 1
+
+# Each rule emits a conflict code if matched.
+# Any conflict => comp_safety_mode = locked_down
+
+rules:
+  - code: "conflict:pii_vs_public"
+    description: "PII contains but classification is public"
+    when:
+      all:
+        - { key: sec_pii, eq: contains }
+        - { key: sec_class, eq: public }
+
+  - code: "conflict:client_scope_without_client_tenant"
+    description: "scope is client but tenant is none"
+    when:
+      all:
+        - { key: boundary_scope, eq: client }
+        - { key: boundary_tenant, eq: "tenant:none" }
+
+  - code: "conflict:rejected_must_not_execute"
+    description: "rejected content should never be executable"
+    when:
+      all:
+        - { key: truth_status, eq: rejected }
+        - { key: rights_exec, eq: executable }
+
+  - code: "conflict:no_reuse_but_export_allow"
+    description: "no_reuse but export is allow"
+    when:
+      all:
+        - { key: rights_reuse, eq: no_reuse }
+        - { key: sec_export, eq: allow }
+
+  - code: "conflict:unknown_boundary"
+    description: "boundary missing or invalid"
+    when:
+      any:
+        - { key: boundary_scope, missing: true }
+        - { key: boundary_tenant, missing: true }

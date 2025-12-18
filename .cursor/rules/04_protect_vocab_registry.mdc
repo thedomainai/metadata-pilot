@@ -1,0 +1,28 @@
+---
+description: "Protect governed files (vocab/registry/policy/schema) from drift"
+globs: "os_meta/*"
+alwaysApply: true
+---
+
+# Rule: os_meta/* are governed assets.
+
+## Forbidden
+- Do NOT modify vocab.yaml, entity_registry.yaml, policy_rules.yaml, schema.yaml
+  unless the user explicitly requests a governed update.
+
+## If you need a new value
+- Do NOT add it ad-hoc.
+- Mark the affected document meta as:
+  - comp_conflicts includes "conflict:needs_vocab_update"
+  - comp_safety_mode=locked_down
+  - comp_label_quality=auto_low
+
+  ## How to request a governed update
+- Explicitly ask the user for a governed update.
+- Clearly state:
+  - which file needs a new value (vocab / registry / policy / schema)
+  - the exact key or rule to be added or changed
+  - the intended semantics and safety implications
+- Until a governed update is approved:
+  - Do NOT infer or simulate the new value.
+  - Keep the document in locked_down mode.

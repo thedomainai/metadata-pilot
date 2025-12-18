@@ -1,0 +1,28 @@
+registry_rev: 1
+
+# Canonical IDs only. No ad-hoc entities in document metas.
+
+clients:
+  - id: "client:acme"
+    name: "Acme Inc."
+    aliases: ["ACME", "Acme"]
+
+projects:
+  - id: "project:alpha"
+    name: "Alpha"
+
+departments:
+  - id: "dept:finance"
+    name: "Finance"
+
+tools:
+  - id: "tool:cursor"
+    name: "Cursor"
+  - id: "tool:obsidian"
+    name: "Obsidian"
+  - id: "tool:n8n"
+    name: "n8n"
+
+people:
+  - id: "person:yuta"
+    name: "Yuta"

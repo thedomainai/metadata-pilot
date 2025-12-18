@@ -1,0 +1,17 @@
+---
+description: "OS Meta v2 Schema Enforcement for *.meta.yaml"
+globs: "**/*.meta.yaml"
+alwaysApply: true
+---
+
+# Rule: Strict schema for sidecar metadata
+
+- Sidecar files MUST conform to os_meta/schema.yaml exactly.
+- No extra keys allowed.
+- Enum values MUST come from os_meta/vocab.yaml.
+- Entity IDs MUST come from os_meta/entity_registry.yaml.
+
+If you detect an unknown vocab/entity, do NOT guess:
+- Add comp_conflicts: ["conflict:unknown_vocab"] or ["conflict:unknown_entity"]
+- Set comp_safety_mode: locked_down
+- Set comp_label_quality: auto_low

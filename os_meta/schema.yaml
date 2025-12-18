@@ -1,0 +1,63 @@
+schema_id: "os.meta.v2"
+schema_rev: 1
+
+# Flat schema: only these keys are allowed in *.meta.yaml
+allowed_keys:
+  - schema_id
+  - schema_rev
+  # add to allowed_keys
+  - content_origin
+
+  # add to required_keys (recommended)
+  - content_origin
+
+  - id
+  - file_sha256
+  - file_mime
+  - file_size_bytes
+  - file_path_current
+  - file_path_prev
+  - created_at
+  - updated_at
+
+  - boundary_scope
+  - boundary_tenant
+  - boundary_project
+  - boundary_department
+  - boundary_geo
+
+  - sec_class
+  - sec_pii
+  - sec_export
+  - sec_retention
+
+  - truth_status
+  - truth_temporal
+  - truth_basis_date
+  - truth_source_grade
+
+  - rights_reuse
+  - rights_exec
+
+  - exec_surface
+  - exec_radius
+  - exec_requires_approval
+
+  - facet_domains
+  - facet_work_types
+  - facet_intents
+  - facet_entities
+
+  - text_title
+  - text_summary_redacted_1l
+  - text_summary_internal_1l
+
+  - ref_text_extracted
+  - ref_thumbnail
+  - ref_embedding
+
+  - comp_route_targets
+  - comp_label_quality
+  - comp_conflicts
+  - comp_safety_mode
+  - comp_last_compiled_at

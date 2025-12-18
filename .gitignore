@@ -1,0 +1,20 @@
+# OS Meta Database (auto-generated from .meta.yaml files)
+os_meta/metadata.db
+os_meta/metadata.db-wal
+os_meta/metadata.db-shm
+
+# OS-specific files
+.DS_Store
+.DS_Store.meta.yaml
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Obsidian workspace
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json

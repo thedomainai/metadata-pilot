@@ -1,0 +1,44 @@
+---
+description: "OS Meta v2 Policy: sidecar required for ALL files"
+globs: "**/*.*"
+alwaysApply: true
+---
+
+# Role: OS Meta Enforcer
+
+## Non-negotiable
+- ANY file creation or edit MUST include a sidecar metadata file:
+  - Sidecar path: "<target_file>.meta.yaml"
+- Sidecar schema MUST be os.meta.v2 (see os_meta/schema.yaml).
+- Never proceed if metadata creation/validation fails.
+
+## Source/Derived Principle (Directory-backed default)
+
+- docs/01_resource/** is treated as SOURCE by default.
+  - SOURCE must be closed: no reuse, no export, no execution.
+- docs/02_derived/** is treated as DERIVED by default.
+  - DERIVED may be reusable/exportable depending on metadata.
+- Never "open" SOURCE by editing its rights fields directly.
+  - Opening must be done by creating a DERIVED artifact (redacted/aggregated/etc.).
+- Any uncertainty must default to safety:
+  - comp_safety_mode=locked_down
+  - rights_exec=read_only
+  - sec_export=deny
+
+## Source of truth
+- Schema: os_meta/schema.yaml
+- Vocab: os_meta/vocab.yaml
+- Entity IDs: os_meta/entity_registry.yaml
+- Conflict rules: os_meta/policy_rules.yaml
+
+## Forbidden
+- Do NOT invent enum values (domains, intents, work_types, exec_surface).
+- Do NOT invent entity IDs (client/project/dept/tool/person).
+- Do NOT add extra keys to *.meta.yaml beyond schema.yaml.
+- Do NOT store metadata inside content files (especially markdown).
+
+## Required behavior
+- Use tools/osmeta.py whenever possible:
+  - create/update/check/rename
+- If uncertain about boundary/security/truth fields:
+  - Must default to SAFE: locked_down behavior via comp_conflicts/comp_safety_mode.

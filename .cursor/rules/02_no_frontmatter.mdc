@@ -1,0 +1,16 @@
+---
+description: "FORBID YAML frontmatter in Markdown"
+globs: "**/*.md"
+alwaysApply: true
+---
+
+# Rule: Markdown files are pure content. No frontmatter.
+
+## Forbidden
+- Do NOT create YAML frontmatter (--- ... ---) in any .md file.
+- Do NOT store IDs, tags, status, routing, or any metadata inside markdown.
+
+## Enforcement
+- If a markdown file contains frontmatter, you MUST:
+  1) Remove the entire frontmatter block
+  2) Ensure "<file>.meta.yaml" exists and is updated via tools/osmeta.py
