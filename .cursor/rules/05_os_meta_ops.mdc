@@ -1,0 +1,40 @@
+---
+description: "OS Meta Ops: required procedure for create/update/move/rename"
+globs: "**/*.*"
+alwaysApply: true
+---
+
+# Procedure (must follow)
+
+## On new file creation
+1) Create the content file.
+2) Run: python3 tools/osmeta.py create "<file_path>"
+3) Run: python3 tools/osmeta.py check "<file_path>"
+
+## On file edit
+1) Edit the file.
+2) Run: python3 tools/osmeta.py update "<file_path>"
+3) Run: python3 tools/osmeta.py check "<file_path>"
+
+## On creating reusable outputs (SOURCE -> DERIVED workflow)
+
+- Do NOT sanitize or rewrite the SOURCE file in place.
+- Create a new DERIVED file under docs/02_derived/**.
+- The DERIVED file MUST record lineage:
+  - derived_from: [<source sha256 or path>]
+  - derived_transform: [what was removed/aggregated/hashed]
+- After creating DERIVED:
+  1) python3 tools/osmeta.py create "<derived_path>"
+  2) python3 tools/osmeta.py update "<derived_path>"
+  3) python3 tools/osmeta.py check  "<derived_path>"
+
+## On rename/move
+- You MUST move/rename the sidecar together.
+- Use: python3 tools/osmeta.py rename "<old_path>" "<new_path>"
+- If you cannot do sidecar follow-up, do NOT rename/move.
+
+## Safety fallback
+- If boundary cannot be determined, do NOT guess:
+  - keep boundary_tenant=tenant:none
+  - comp_safety_mode=locked_down
+  - comp_conflicts include "conflict:unknown_boundary"

@@ -1,0 +1,56 @@
+---
+description: "Inbox organization: prevent files from being moved to development project directories"
+globs: "docs/00_inbox/**"
+alwaysApply: true
+---
+
+# Rule: Inbox File Organization
+
+## Forbidden Directories
+
+When organizing files from `docs/00_inbox/`, **NEVER** move files to development project directories that are tracked by git and may be accidentally pushed to GitHub.
+
+### Forbidden Target Directories
+
+- `docs/03_project/00_thedomainai/**` - Development project directory (contains git repositories)
+- Any directory under `docs/03_project/` that contains `.git/` subdirectories
+- Any directory that is part of an active development project repository
+
+### Allowed Target Directories
+
+Files from `docs/00_inbox/` should be moved to:
+
+- `docs/01_resource/**` - Resource files (SOURCE, safe for organization)
+  - `docs/01_resource/ai/` - AI-related technical documentation
+  - `docs/01_resource/business/` - Business-related articles and materials
+  - `docs/01_resource/philosophy/` - Philosophy and thought-related content
+  - Other resource subdirectories as appropriate
+
+- `docs/02_derived/**` - Derived/processed documents (DERIVED)
+
+- `docs/03_project/00_personal/` - Personal project files (safe, not development code)
+
+- `docs/03_project/01_cyreco/` - Business project files (safe, not development code)
+
+- `docs/03_project/02_reiwa/` - Business project files (safe, not development code)
+
+- `docs/99_archive/` - Archive directory
+
+## Enforcement
+
+- When using `tools/organize_inbox.py` or any file organization script:
+  - **MUST** check if target directory contains `.git/` before moving
+  - **MUST** skip files that would be moved to development project directories
+  - **MUST** log a warning when skipping such files
+
+- If a file appears to belong to a development project:
+  - Keep it in `docs/00_inbox/` for manual review
+  - Or move it to `docs/01_resource/` with appropriate categorization
+  - **NEVER** automatically move to `docs/03_project/00_thedomainai/` or any git-tracked development directory
+
+## Rationale
+
+Development project directories (especially `docs/03_project/00_thedomainai/`) may contain git repositories that are pushed to GitHub. Accidentally moving personal or sensitive files to these directories risks:
+- Accidental exposure of sensitive information
+- Polluting development repositories with unrelated content
+- Breaking development workflows

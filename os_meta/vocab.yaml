@@ -1,0 +1,59 @@
+vocab_rev: 1
+
+boundary_scope: [personal, company, client]
+
+sec_class: [public, internal, confidential, secret]
+sec_pii: [none, possible, contains]
+sec_export: [deny, allow_redacted, allow]
+sec_retention: [permanent, "1y", "90d", "30d"]
+
+truth_status: [draft, decided, rejected]
+truth_temporal: [current, outdated, assumption]
+truth_source_grade: [A, B, C, D]
+
+rights_reuse: [reusable, reference_only, no_reuse]
+rights_exec: [read_only, suggest_only, executable]
+
+exec_surface:
+  - fs_read
+  - fs_write
+  - web_read
+  - web_write
+  - email_send
+  - calendar_write
+  - crm_write
+
+exec_radius: [none, file, folder, repo, org, external]
+exec_requires_approval: [no, yes]
+
+# Multi-dimensional facets (start small; governed updates only)
+facet_domains:
+  - reskilling
+  - ai_delivery
+  - ax_bpr
+  - sales
+  - marketing
+  - media_research
+  - product
+  - ops
+  - finance
+  - legal_policy
+
+facet_work_types:
+  - note
+  - proposal
+  - spec
+  - dataset
+  - meeting_memo
+  - invoice
+  - contract
+  - slide_deck
+
+facet_intents:
+  - generate_slides
+  - generate_memo
+  - extract_actions
+  - extract_tables
+  - legal_review
+  - finance_review
+  - client_delivery

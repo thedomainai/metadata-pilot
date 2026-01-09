@@ -1,0 +1,80 @@
+config_rev: 1
+
+# Folder-based inference (safe defaults, never guess unsafe)
+path_inference:
+  - match: "^docs/00_inbox/"
+    set:
+      content_origin: source
+      boundary_scope: personal
+      boundary_tenant: "tenant:none"
+      rights_exec: read_only
+      rights_reuse: reference_only
+      sec_export: deny
+      sec_pii: possible
+
+  - match: "^docs/01_resource/"
+    set:
+      content_origin: source
+      boundary_scope: personal
+      boundary_tenant: "tenant:none"
+      rights_exec: read_only
+      rights_reuse: no_reuse
+      sec_export: deny
+      sec_pii: possible
+
+  - match: "^docs/02_derived/"
+    set:
+      content_origin: derived
+      boundary_scope: personal
+      boundary_tenant: "tenant:none"
+      rights_exec: suggest_only
+      rights_reuse: reusable
+      sec_export: allow_redacted
+      sec_pii: none
+
+  - match: "^docs/03_project/"
+    set:
+      content_origin: derived
+      boundary_scope: personal
+      boundary_tenant: "tenant:none"
+      rights_exec: suggest_only
+      rights_reuse: reference_only
+      sec_export: deny
+      sec_pii: possible
+
+  - match: "^docs/99_archive/"
+    set:
+      rights_exec: read_only
+      rights_reuse: no_reuse
+      sec_export: deny
+
+defaults:
+  boundary_project: "project:none"
+  boundary_department: "dept:none"
+  boundary_geo: "geo:none"
+
+  sec_class: internal
+  sec_pii: possible
+  sec_export: deny
+  sec_retention: permanent
+
+  truth_status: draft
+  truth_temporal: current
+  truth_basis_date: null
+  truth_source_grade: C
+
+  rights_reuse: reference_only
+  rights_exec: read_only
+
+  exec_surface: ["fs_read"]
+  exec_radius: file
+  exec_requires_approval: yes
+
+  facet_domains: []
+  facet_work_types: ["note"]
+  facet_intents: []
+  facet_entities: []
+
+text_defaults:
+  text_title_fallback: "Untitled"
+  text_summary_redacted_1l_fallback: "TBD"
