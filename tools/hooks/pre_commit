@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Check only staged files that are not meta files themselves
+FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -vE '\.meta\.yaml$' || true)
+
+if [ -z "$FILES" ]; then
+  exit 0
+fi
+
+for f in $FILES; do
+  if [ ! -f "$f" ]; then
+    continue
+  fi
+  python3 tools/osmeta.py check "$f"
+done

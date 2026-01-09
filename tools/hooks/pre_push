@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Full repo scan (can be slow); keep optional
+FILES=$(git ls-files | grep -vE '\.meta\.yaml$' || true)
+
+for f in $FILES; do
+  if [ -f "$f" ]; then
+    python3 tools/osmeta.py check "$f"
+  fi
+done
